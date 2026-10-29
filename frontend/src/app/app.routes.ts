@@ -14,8 +14,14 @@ import { InscriptionsComponent } from './features/inscriptions/inscriptions.comp
 import { BoursesComponent } from './features/bourses/bourses.component';
 import { SanteComponent } from './features/sante/sante.component';
 import { VieComponent } from './features/vie/vie.component';
+import { AssistantComponent } from './features/assistant/assistant.component';
 
 export const routes: Routes = [
+  {
+  path: 'assistant',
+  component: AssistantComponent,
+  canActivate: [authGuard]
+  },
   { path: 'login', component: LoginComponent },
   { path: '', component: DashboardComponent, canActivate: [authGuard] },
   // un composant par module métier (chacun a ses onglets / colonnes / formulaires)

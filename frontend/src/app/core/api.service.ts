@@ -23,6 +23,14 @@ export class ApiService {
   individual = (id: string) => this.http.get<Detail>(`${API}/individuals/${id}`);          // fiche globale (tous modules)
   individualsOf = (cls: string) => this.http.get<Individual[]>(`${API}/classes/${cls}/individuals`);
   allClasses = () => this.http.get<string[]>(`${API}/classes`);
+  nlp = (question: string) =>
+  this.http.post<{
+    question: string;
+    classe: string;
+    intention: string;
+    sparql: string;
+    resultats: Record<string, string>[];
+  }>(`${API}/nlp`, { question });
   sparql = (query: string) => this.http.post<{ vars: string[]; rows: any[] }>(`${API}/sparql`, { query });
   exportTtl = () => this.http.get(`${API}/export.ttl`, { responseType: 'blob' });
   // --- CRUD par module : /api/<module>/classes … /api/<module>/items … ---

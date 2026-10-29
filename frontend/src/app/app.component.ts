@@ -20,6 +20,11 @@ import { MODULES } from './core/modules';
           <a routerLink="/" routerLinkActive="on" [routerLinkActiveOptions]="{exact:true}"><i class="dot"></i>Tableau de bord</a>
           <small class="muted sec">Modules</small>
           @for (m of modules; track m.id) { <a [routerLink]="'/' + m.id" routerLinkActive="on"><i class="dot"></i>{{ m.title }}</a> }
+          <small class="muted sec">Intelligence Artificielle</small>
+
+          <a routerLink="/assistant" routerLinkActive="on">
+            <i class="dot"></i> ✦ Assistant IA
+          </a>
           <small class="muted sec">Schéma</small>
           <a routerLink="/proprietes" routerLinkActive="on"><i class="dot"></i>Propriétés</a>
           <a routerLink="/sparql" routerLinkActive="on"><i class="dot"></i>Console SPARQL</a>
