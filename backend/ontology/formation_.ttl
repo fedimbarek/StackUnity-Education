@@ -8,7 +8,6 @@
     rdfs:label "StackUnity - Éducation et Formation"@fr ;
     rdfs:comment "Ontologie permettant de modéliser les personnes, formations, compétences, prérequis, ressources pédagogiques, évaluations, parcours d'apprentissage, clubs et stages."@fr .
 
-<<<<<<< HEAD
 :2 a :Formation,
         owl:NamedIndividual ;
     rdfs:label "dd" ;
@@ -28,16 +27,6 @@
         owl:NamedIndividual ;
     rdfs:label "ahmed2" ;
     :nom "ahmed2" .
-=======
-:12 a :MatiereTechnique,
-        owl:NamedIndividual ;
-    rdfs:label "dddd" ;
-    :codeMatiere "dd" ;
-    :coefficient 12.0 ;
-    :matiereDeveloppe :EspritSportif ;
-    :nom "dd" ;
-    :nombreHeures 2 .
->>>>>>> origin/main
 
 :Anis a :Vacataire,
         owl:NamedIndividual ;
@@ -72,7 +61,6 @@
     :suitFormationAlternance :AlternanceDeveloppeur ;
     :suitParcours :ParcoursReconversionIT .
 
-<<<<<<< HEAD
 :Boursier a owl:Class ;
     rdfs:label "Boursier"@fr ;
     rdfs:subClassOf :Apprenant ;
@@ -81,8 +69,6 @@
                         owl:onProperty :beneficieDeBourse ;
                         owl:someValuesFrom :Bourse ] ) ] .
 
-=======
->>>>>>> origin/main
 :CampagneVaccinationOctobre a :CampagneSante,
         owl:NamedIndividual ;
     rdfs:label "Campagne de vaccination d'octobre"@fr ;
@@ -559,14 +545,6 @@
     rdfs:domain :Formation ;
     rdfs:range :Matiere .
 
-<<<<<<< HEAD
-=======
-:accueilliPar a owl:ObjectProperty ;
-    rdfs:label "est accueilli par"@fr ;
-    rdfs:domain :Stage ;
-    rdfs:range :Organisme .
-
->>>>>>> origin/main
 :animePar a owl:ObjectProperty ;
     rdfs:label "est animée par"@fr ;
     rdfs:domain :Seance ;
@@ -601,14 +579,6 @@
     rdfs:domain :Evaluation ;
     rdfs:range :Niveau .
 
-<<<<<<< HEAD
-=======
-:beneficieDeBourse a owl:ObjectProperty ;
-    rdfs:label "bénéficie de la bourse"@fr ;
-    rdfs:domain :Apprenant ;
-    rdfs:range :Bourse .
-
->>>>>>> origin/main
 :beneficieDuService a owl:ObjectProperty ;
     rdfs:label "bénéficie du service médical"@fr ;
     rdfs:domain :Apprenant ;
@@ -624,12 +594,8 @@
     rdfs:domain :Espace ;
     rdfs:range xsd:integer .
 
-<<<<<<< HEAD
 :capaciteMax a owl:DatatypeProperty,
         owl:FunctionalProperty ;
-=======
-:capaciteMax a owl:DatatypeProperty ;
->>>>>>> origin/main
     rdfs:label "capacité maximale"@fr ;
     rdfs:domain :Club ;
     rdfs:range xsd:integer .
@@ -654,12 +620,8 @@
     rdfs:domain :Club ;
     rdfs:range :OutilNumerique .
 
-<<<<<<< HEAD
 :codeMatiere a owl:DatatypeProperty,
         owl:FunctionalProperty ;
-=======
-:codeMatiere a owl:DatatypeProperty ;
->>>>>>> origin/main
     rdfs:label "code de la matière"@fr ;
     rdfs:domain :Matiere ;
     rdfs:range xsd:string .
@@ -747,12 +709,8 @@
     rdfs:domain :Stage ;
     rdfs:range :Certification .
 
-<<<<<<< HEAD
 :delivrePar a owl:FunctionalProperty,
         owl:ObjectProperty ;
-=======
-:delivrePar a owl:ObjectProperty ;
->>>>>>> origin/main
     rdfs:label "est délivré par"@fr ;
     rdfs:domain :Diplome ;
     rdfs:range :Organisme .
@@ -817,12 +775,8 @@
     rdfs:domain :Personne ;
     rdfs:range xsd:string .
 
-<<<<<<< HEAD
 :encadreAcademique a owl:FunctionalProperty,
         owl:ObjectProperty ;
-=======
-:encadreAcademique a owl:ObjectProperty ;
->>>>>>> origin/main
     rdfs:label "a pour encadrant académique"@fr ;
     rdfs:domain :Stage ;
     rdfs:range :Enseignant .
@@ -887,22 +841,14 @@
     rdfs:domain :Stage ;
     rdfs:range :RapportDeStage .
 
-<<<<<<< HEAD
 :financePar a owl:FunctionalProperty,
         owl:ObjectProperty ;
-=======
-:financePar a owl:ObjectProperty ;
->>>>>>> origin/main
     rdfs:label "est financée par"@fr ;
     rdfs:domain :Bourse ;
     rdfs:range :Organisme .
 
-<<<<<<< HEAD
 :gratification a owl:DatatypeProperty,
         owl:FunctionalProperty ;
-=======
-:gratification a owl:DatatypeProperty ;
->>>>>>> origin/main
     rdfs:label "gratification mensuelle (DT)"@fr ;
     rdfs:domain :Stage ;
     rdfs:range xsd:decimal .
@@ -976,22 +922,14 @@
     rdfs:domain :Diplome ;
     rdfs:range xsd:string .
 
-<<<<<<< HEAD
 :montantBourse a owl:DatatypeProperty,
         owl:FunctionalProperty ;
-=======
-:montantBourse a owl:DatatypeProperty ;
->>>>>>> origin/main
     rdfs:label "montant de la bourse (DT)"@fr ;
     rdfs:domain :Bourse ;
     rdfs:range xsd:decimal .
 
-<<<<<<< HEAD
 :moyenneGenerale a owl:DatatypeProperty,
         owl:FunctionalProperty ;
-=======
-:moyenneGenerale a owl:DatatypeProperty ;
->>>>>>> origin/main
     rdfs:label "moyenne générale"@fr ;
     rdfs:domain :Apprenant ;
     rdfs:range xsd:decimal .
@@ -1021,22 +959,14 @@
     rdfs:domain :Matiere ;
     rdfs:range xsd:integer .
 
-<<<<<<< HEAD
 :nombreMembres a owl:DatatypeProperty,
         owl:FunctionalProperty ;
-=======
-:nombreMembres a owl:DatatypeProperty ;
->>>>>>> origin/main
     rdfs:label "nombre de membres"@fr ;
     rdfs:domain :Club ;
     rdfs:range xsd:integer .
 
-<<<<<<< HEAD
 :numeroConvention a owl:DatatypeProperty,
         owl:FunctionalProperty ;
-=======
-:numeroConvention a owl:DatatypeProperty ;
->>>>>>> origin/main
     rdfs:label "numéro de convention"@fr ;
     rdfs:domain :Stage ;
     rdfs:range xsd:string .
@@ -1166,12 +1096,8 @@
     rdfs:domain :Stage ;
     rdfs:range xsd:string .
 
-<<<<<<< HEAD
 :superviseParTuteur a owl:FunctionalProperty,
         owl:ObjectProperty ;
-=======
-:superviseParTuteur a owl:ObjectProperty ;
->>>>>>> origin/main
     rdfs:label "est supervisé par le tuteur"@fr ;
     rdfs:domain :Stage ;
     rdfs:range :TuteurEntreprise .
@@ -1196,7 +1122,6 @@
     rdfs:domain :ServiceMedical ;
     rdfs:range xsd:string .
 
-<<<<<<< HEAD
 :test a :Formation,
         owl:NamedIndividual ;
     rdfs:label "22" ;
@@ -1205,8 +1130,6 @@
     :nom "dd" ;
     :tauxReussite 2.0 .
 
-=======
->>>>>>> origin/main
 :tutore a owl:ObjectProperty ;
     rdfs:label "tutore"@fr ;
     rdfs:domain :Tuteur ;
@@ -1727,30 +1650,6 @@
     :sujet "Développement d'une application mobile de suivi des apprenants" ;
     :superviseParTuteur :Mehdi .
 
-<<<<<<< HEAD
-=======
-:StagePFEWeb a :StagePFE,
-        owl:NamedIndividual ;
-    rdfs:label "PFE - Plateforme web"@fr ;
-    :accueilliPar :StackUnityTunisie ;
-    :dateDebut "2026-02-01"^^xsd:date ;
-    :dateFin "2026-07-15"^^xsd:date ;
-    :developpeCompetenceStage :Django,
-        :JavaScript ;
-    :dureeSemaines 24 ;
-    :encadreAcademique :Ahmed ;
-    :estRemunere true ;
-    :evalueParRapport :RapportPFEWeb ;
-    :gratification 600.0 ;
-    :nom "PFE - Plateforme web d'apprentissage" ;
-    :numeroConvention "CONV-2026-001" ;
-    :stageDansDomaine :DomaineWeb ;
-    :stageNecessiteCertificat :CertifAptitudeStageAmira ;
-    :sujet "Conception d'une plateforme web d'apprentissage en ligne" ;
-    :superviseParTuteur :Mehdi ;
-    :valideFormation :BootcampFullStack .
-
->>>>>>> origin/main
 :Stagiaire a owl:Class ;
     rdfs:label "Stagiaire"@fr ;
     rdfs:subClassOf :Apprenant .
@@ -1810,28 +1709,22 @@
     rdfs:label "Webinaire stage"@fr ;
     :nom "Comment réussir son stage de fin d'études" .
 
-<<<<<<< HEAD
 :accueilliPar a owl:FunctionalProperty,
         owl:ObjectProperty ;
     rdfs:label "est accueilli par"@fr ;
     rdfs:domain :Stage ;
     rdfs:range :Organisme .
 
-=======
->>>>>>> origin/main
 :assureParPersonnel a owl:ObjectProperty ;
     rdfs:label "est assuré par"@fr ;
     rdfs:domain :ServiceMedical ;
     rdfs:range :PersonnelMedical .
 
-<<<<<<< HEAD
 :beneficieDeBourse a owl:ObjectProperty ;
     rdfs:label "bénéficie de la bourse"@fr ;
     rdfs:domain :Apprenant ;
     rdfs:range :Bourse .
 
-=======
->>>>>>> origin/main
 :consultePar a owl:ObjectProperty ;
     rdfs:label "est animé par le psychologue"@fr ;
     rdfs:domain :SoutienPsychologique ;
@@ -2099,14 +1992,11 @@
     rdfs:label "Entretien psychologique individuel"@fr ;
     rdfs:subClassOf :SoutienPsychologique .
 
-<<<<<<< HEAD
 :EspritSportif a :CompetenceSportive,
         owl:NamedIndividual ;
     rdfs:label "Esprit sportif"@fr ;
     :nom "Esprit sportif" .
 
-=======
->>>>>>> origin/main
 :Etudiant a owl:Class ;
     rdfs:label "Étudiant"@fr ;
     rdfs:subClassOf :Apprenant .
@@ -2300,7 +2190,6 @@
     rdfs:label "Stage d'observation"@fr ;
     rdfs:subClassOf :StageEntreprise .
 
-<<<<<<< HEAD
 :StagePFEWeb a :StagePFE,
         owl:NamedIndividual ;
     rdfs:label "PFE - Plateforme web"@fr ;
@@ -2322,8 +2211,6 @@
     :superviseParTuteur :Mehdi ;
     :valideFormation :BootcampFullStack .
 
-=======
->>>>>>> origin/main
 :SuiviSportif a owl:Class ;
     rdfs:label "Suivi médico-sportif"@fr ;
     rdfs:subClassOf :SanteSportive .
@@ -2483,14 +2370,6 @@ xsd:time a rdfs:Datatype .
     rdfs:label "Entreprise"@fr ;
     rdfs:subClassOf :Organisme .
 
-<<<<<<< HEAD
-=======
-:EspritSportif a :CompetenceSportive,
-        owl:NamedIndividual ;
-    rdfs:label "Esprit sportif"@fr ;
-    :nom "Esprit sportif" .
-
->>>>>>> origin/main
 :InscriptionClub a owl:Class ;
     rdfs:label "Inscription à un club"@fr ;
     rdfs:subClassOf :Inscription .
@@ -2570,13 +2449,6 @@ xsd:time a rdfs:Datatype .
     rdfs:label "Rapport de stage"@fr ;
     rdfs:subClassOf :Evaluation .
 
-<<<<<<< HEAD
-=======
-:SalleDeCours a owl:Class ;
-    rdfs:label "Salle de cours"@fr ;
-    rdfs:subClassOf :Espace .
-
->>>>>>> origin/main
 :Semestre2_2026 a :Semestre,
         owl:NamedIndividual ;
     rdfs:label "Semestre 2"@fr ;
@@ -2722,13 +2594,10 @@ xsd:time a rdfs:Datatype .
     :nom "Laboratoire d'Intelligence Artificielle" ;
     :ville "Tunis" .
 
-<<<<<<< HEAD
 :MatiereTechnique a owl:Class ;
     rdfs:label "Matière technique"@fr ;
     rdfs:subClassOf :Matiere .
 
-=======
->>>>>>> origin/main
 :ModuleSQL a :Module,
         owl:NamedIndividual ;
     rdfs:label "Module SQL"@fr ;
@@ -2769,13 +2638,10 @@ xsd:time a rdfs:Datatype .
     rdfs:label "Quiz"@fr ;
     rdfs:subClassOf :Evaluation .
 
-<<<<<<< HEAD
 :SalleDeCours a owl:Class ;
     rdfs:label "Salle de cours"@fr ;
     rdfs:subClassOf :Espace .
 
-=======
->>>>>>> origin/main
 :Salma a :Enseignant,
         owl:NamedIndividual ;
     rdfs:label "Salma"@fr ;
@@ -2897,13 +2763,6 @@ xsd:time a rdfs:Datatype .
     :nom "Rami Toumi" ;
     :specialiteMedicale "Soins infirmiers" .
 
-<<<<<<< HEAD
-=======
-:MatiereTechnique a owl:Class ;
-    rdfs:label "Matière technique"@fr ;
-    rdfs:subClassOf :Matiere .
-
->>>>>>> origin/main
 :Module a owl:Class ;
     rdfs:label "Module"@fr ;
     rdfs:subClassOf :Formation .
@@ -3000,13 +2859,6 @@ xsd:time a rdfs:Datatype .
     rdfs:label "Personnel médical"@fr ;
     rdfs:subClassOf :Personne .
 
-<<<<<<< HEAD
-=======
-:Bourse a owl:Class ;
-    rdfs:label "Bourse"@fr ;
-    rdfs:comment "Aide financière attribuée à un apprenant."@fr .
-
->>>>>>> origin/main
 :ModulePython a :Module,
         owl:NamedIndividual ;
     rdfs:label "Module Python"@fr ;
@@ -3033,13 +2885,10 @@ xsd:time a rdfs:Datatype .
     rdfs:label "Anglais"@fr ;
     :nom "Anglais" .
 
-<<<<<<< HEAD
 :Bourse a owl:Class ;
     rdfs:label "Bourse"@fr ;
     rdfs:comment "Aide financière attribuée à un apprenant."@fr .
 
-=======
->>>>>>> origin/main
 :Evenement a owl:Class ;
     rdfs:label "Événement"@fr ;
     rdfs:comment "Événement organisé par un club (spectacle, tournoi, concert...)."@fr ;
@@ -3132,25 +2981,15 @@ xsd:date a rdfs:Datatype .
     rdfs:label "Arabe"@fr ;
     :nom "Arabe" .
 
-<<<<<<< HEAD
-=======
-:Enseignant a owl:Class ;
-    rdfs:label "Enseignant"@fr ;
-    rdfs:subClassOf :Personne .
-
->>>>>>> origin/main
 :Certification a owl:Class ;
     rdfs:label "Certification"@fr ;
     rdfs:comment "Certification obtenue après validation d'une formation ou de compétences."@fr ;
     rdfs:subClassOf :Domaine .
 
-<<<<<<< HEAD
 :Enseignant a owl:Class ;
     rdfs:label "Enseignant"@fr ;
     rdfs:subClassOf :Personne .
 
-=======
->>>>>>> origin/main
 :Matiere a owl:Class ;
     rdfs:label "Matière"@fr ;
     rdfs:comment "Matière enseignée au sein d'une formation."@fr .
@@ -3181,14 +3020,10 @@ xsd:date a rdfs:Datatype .
 :Stage a owl:Class ;
     rdfs:label "Stage"@fr ;
     rdfs:comment "Période de formation pratique effectuée par un apprenant."@fr ;
-<<<<<<< HEAD
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onProperty :accueilliPar ],
         :Organisme .
-=======
-    rdfs:subClassOf :Organisme .
->>>>>>> origin/main
 
 :Club a owl:Class ;
     rdfs:label "Club"@fr ;
@@ -3210,7 +3045,6 @@ xsd:date a rdfs:Datatype .
     rdfs:subClassOf :Diplome .
 
 [] a owl:AllDisjointClasses ;
-<<<<<<< HEAD
     owl:members ( :LangueDesSignes :LangueEtrangere :LangueNationale ) .
 
 [] a owl:AllDisjointClasses ;
@@ -3233,15 +3067,11 @@ xsd:date a rdfs:Datatype .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :RapportDeStage :Soutenance :TravailPratique ) .
-=======
-    owl:members ( :Chorale :GroupeMusiqueModerne :Orchestre ) .
->>>>>>> origin/main
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :ClubEnvironnement :ClubSecourisme :ClubSolidarite ) .
 
 [] a owl:AllDisjointClasses ;
-<<<<<<< HEAD
     owl:members ( :SeanceDeCours :SeanceDeTD :SeanceDeTP ) .
 
 [] a owl:AllDisjointClasses ;
@@ -3305,14 +3135,6 @@ xsd:date a rdfs:Datatype .
     owl:members ( :Certification :Competence :Evaluation :Formation :Niveau :ParcoursApprentissage :Personne :RessourcePedagogique ) .
 
 [] a owl:AllDisjointClasses ;
-=======
-    owl:members ( :ClubHumanitaire :ClubMusique :ClubSport :ClubTechnologie :ClubTheatre ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :ClubIntelligenceArtificielle :ClubProgrammation :ClubRobotique ) .
-
-[] a owl:AllDisjointClasses ;
->>>>>>> origin/main
     owl:members ( :Amphitheatre :SalleDeCours :SalleInformatique ) .
 
 [] a owl:AllDisjointClasses ;
@@ -3361,98 +3183,11 @@ xsd:date a rdfs:Datatype .
     owl:members ( :Infirmier :Medecin :Psychologue ) .
 
 [] a owl:AllDisjointClasses ;
-<<<<<<< HEAD
     owl:members ( :Chorale :GroupeMusiqueModerne :Orchestre ) .
 
 [] a owl:AllDisjointClasses ;
-=======
->>>>>>> origin/main
     owl:members ( :InscriptionAdministrative :InscriptionClub :InscriptionPedagogique ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :Kinesitherapie :SuiviSportif :VisiteAptitudeSport ) .
 
-<<<<<<< HEAD
-=======
-[] a owl:AllDisjointClasses ;
-    owl:members ( :LangueDesSignes :LangueEtrangere :LangueNationale ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Livre :Podcast :Webinaire ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :MatiereLitteraire :MatiereScientifique :MatiereTechnique ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :NiveauAcademique :NiveauCompetence :NiveauLangue ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :ApplicationMobile :LogicielDeveloppement :PlateformeELearning ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :ParcoursContinu :ParcoursInitial :ParcoursPersonnalise ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :PosteDeSecours :PremiersSoins :TransportMedical ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :RapportDeStage :Soutenance :TravailPratique ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :SeanceDeCours :SeanceDeTD :SeanceDeTP ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :ServiceHebergement :ServiceOrientationEmploi :ServiceRestauration :ServiceTransport ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :StageConvention :StageEntreprise :StageRecherche ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :StageDoctorat :StageLaboratoire :StageMasterRecherche ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :StageInitiation :StageObservation :StagePFE ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :TheatreComedie :TheatreDrame :TheatreImprovisation ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Apprenant :Enseignant :Tuteur ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :AtelierGestionStress :EntretienPsychologique :GroupeDeParole ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :AttestationParticipation :CertificationAcademique :CertificationProfessionnelle ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Basketball :Football :Natation ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :AbonnementTransport :CovoiturageEtudiant :NavetteUniversitaire ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Bourse :Certification :Club :Competence :Departement :Diplome :Domaine :Espace :Evaluation :Evenement :Formation :Inscription :Langue :Matiere :Niveau :Organisme :OutilNumerique :ParcoursApprentissage :PeriodeAcademique :Personne :RessourcePedagogique :Seance :Stage ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :BourseMerite :BourseMobilite :BourseSociale ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Cafeteria :PanierSolidaire :RestaurantUniversitaire ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :CampagneDepistage :EducationSante :Vaccination ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :CertificatAbsence :CertificatAptitudeSport :CertificatAptitudeStage ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :AccompagnementEmploi :ForumEmploi :OrientationAcademique ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Certification :Club :Competence :Evaluation :Evenement :Formation :Niveau :Organisme :ParcoursApprentissage :Personne :RessourcePedagogique :Stage ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Certification :Competence :Evaluation :Formation :Niveau :ParcoursApprentissage :Personne :RessourcePedagogique ) .
-
->>>>>>> origin/main

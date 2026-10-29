@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, ProfileOption } from '../core/auth';
-=======
-import { Component, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from '../core/auth';
->>>>>>> origin/main
 import { HeroArtComponent } from '../shared/art.component';
 
 @Component({
@@ -21,7 +14,6 @@ import { HeroArtComponent } from '../shared/art.component';
           <polygon points="32,6 56,19 32,32 8,19" fill="#5aa9ff"/><polygon points="8,19 32,32 32,58 8,45" fill="#1a73f0"/><polygon points="32,32 56,19 56,45 32,58" fill="#0b4aa8"/>
         </svg>
         <h1>{{ signup() ? 'Créer un compte' : 'Connexion à StackUnity' }}</h1>
-<<<<<<< HEAD
         <p class="lead">
           {{ signup() ? 'Choisissez votre profil : votre tableau de bord sera adapté à votre rôle.'
                       : 'Chaque profil (apprenant, enseignant, médical…) retrouve son propre tableau de bord.' }}
@@ -75,18 +67,6 @@ import { HeroArtComponent } from '../shared/art.component';
               <code>amira</code> apprenant · <code>ahmed</code> enseignant · <code>drsonia</code> médecin · <code>rim</code> resp. de club ·
               <code>mehdi</code> tuteur d'entreprise · <code>sami</code> tuteur</p>
           }
-=======
-        <p class="lead">Consultez et modifiez l’ontologie de formation : personnes, formations, clubs, bourses et plus.</p>
-        <div class="login">
-          <input [(ngModel)]="username" placeholder="Nom d'utilisateur" />
-          <input [(ngModel)]="password" type="password" placeholder="Mot de passe" (keyup.enter)="submit()" />
-          @if (error()) { <p class="err">{{ error() }}</p> }
-          <div class="cta">
-            <button (click)="submit()">{{ signup() ? "S'inscrire" : 'Se connecter' }}</button>
-            <button class="ghost" (click)="signup.set(!signup())">{{ signup() ? 'J’ai déjà un compte' : 'Créer un compte' }}</button>
-          </div>
-          <p class="muted small">Compte de démonstration : admin / admin123</p>
->>>>>>> origin/main
         </div>
       </div>
       <app-hero-art />
@@ -95,7 +75,6 @@ import { HeroArtComponent } from '../shared/art.component';
 export class LoginComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
-<<<<<<< HEAD
   username = ''; password = ''; person = ''; fullName = ''; type = '';
   signup = signal(false); error = signal('');
   profiles = signal<ProfileOption[]>([]);
@@ -126,14 +105,6 @@ export class LoginComponent {
         ...(this.create() ? { name: this.fullName, type: this.type } : { person: this.person }),
       });
     }
-=======
-  username = ''; password = '';
-  signup = signal(false); error = signal('');
-
-  submit() {
-    const call = this.signup() ? this.auth.register(this.username, this.password)
-                               : this.auth.login(this.username, this.password);
->>>>>>> origin/main
     call.subscribe({
       next: () => this.router.navigate(['/']),
       error: e => this.error.set(e.error?.error ?? 'Serveur injoignable (Flask lancé ?)'),
