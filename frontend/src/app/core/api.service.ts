@@ -12,6 +12,7 @@ export interface Detail {
   incoming: { source: string; property: string }[];
 }
 
+<<<<<<< HEAD
 export interface DashCell { t: string; id?: string; m?: string | null; }
 export interface DashSection { key: string; title: string; icon: string; empty: string; columns: string[]; rows: DashCell[][]; }
 export interface MyDashboard {
@@ -38,6 +39,11 @@ export class ApiService {
   private http = inject(HttpClient);
   // --- dashboard personnalisé (selon le rôle du compte) ---
   myDashboard = () => this.http.get<MyDashboard>(`${API}/me/dashboard`);
+=======
+@Injectable({ providedIn: 'root' })
+export class ApiService {
+  private http = inject(HttpClient);
+>>>>>>> origin/main
   // --- transversal ---
   modules = () => this.http.get<any[]>(`${API}/modules`);
   stats = () => this.http.get<Record<string, number>>(`${API}/stats`);
@@ -46,6 +52,7 @@ export class ApiService {
   individual = (id: string) => this.http.get<Detail>(`${API}/individuals/${id}`);          // fiche globale (tous modules)
   individualsOf = (cls: string) => this.http.get<Individual[]>(`${API}/classes/${cls}/individuals`);
   allClasses = () => this.http.get<string[]>(`${API}/classes`);
+<<<<<<< HEAD
   sparqlUpdate = (update: string) => this.http.post<{ ok: boolean; triples_before: number; triples_after: number; delta: number }>(`${API}/sparql/update`, { update });
   sparql = (query: string) => this.http.post<{ vars: string[]; rows: any[] }>(`${API}/sparql`, { query });
   queries = () => this.http.get<QueryDef[]>(`${API}/queries`);                      // bibliothèque de requêtes SPARQL
@@ -54,6 +61,9 @@ export class ApiService {
   aiAsk = (question: string) => this.http.post<AiAnswer>(`${API}/ai/ask`, { question });
   aiExplain = (id: string) => this.http.post<any>(`${API}/ai/explain`, { id });
   aiRecommend = (id: string) => this.http.get<any>(`${API}/ai/recommend/${id}`);
+=======
+  sparql = (query: string) => this.http.post<{ vars: string[]; rows: any[] }>(`${API}/sparql`, { query });
+>>>>>>> origin/main
   exportTtl = () => this.http.get(`${API}/export.ttl`, { responseType: 'blob' });
   // --- CRUD par module : /api/<module>/classes … /api/<module>/items … ---
   classes = (m: string) => this.http.get<OClass[]>(`${API}/${m}/classes`);

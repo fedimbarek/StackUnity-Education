@@ -1,12 +1,17 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+<<<<<<< HEAD
 import { ApiService, QueryDef } from '../core/api.service';
+=======
+import { ApiService } from '../core/api.service';
+>>>>>>> origin/main
 
 @Component({
   selector: 'app-sparql',
   imports: [FormsModule],
   template: `
     <h2>Console SPARQL</h2>
+<<<<<<< HEAD
     <p class="muted">Préfixes déjà déclarés : <code>: rdf: rdfs: owl: xsd:</code></p>
     <div class="toolbar">
       <button [class.ghost]="mode() !== 'read'" (click)="setMode('read')">Lecture (SELECT / ASK)</button>
@@ -29,6 +34,15 @@ import { ApiService, QueryDef } from '../core/api.service';
     <button (click)="run()">Exécuter</button>
     @if (error()) { <p class="err">{{ error() }}</p> }
     @if (message()) { <p class="ok">{{ message() }}</p> }
+=======
+    <p class="muted">Préfixes déjà déclarés : <code>: rdf: rdfs: owl: xsd:</code> · lecture seule (SELECT / ASK).</p>
+    <div class="examples">
+      @for (e of examples; track e.label) { <button class="ghost" (click)="query = e.q">{{ e.label }}</button> }
+    </div>
+    <textarea [(ngModel)]="query" rows="7"></textarea>
+    <button (click)="run()">Exécuter</button>
+    @if (error()) { <p class="err">{{ error() }}</p> }
+>>>>>>> origin/main
     @if (vars().length) {
       <div class="card scroll">
         <table>
@@ -42,6 +56,7 @@ import { ApiService, QueryDef } from '../core/api.service';
 export class SparqlComponent {
   private api = inject(ApiService);
   vars = signal<string[]>([]); rows = signal<any[]>([]); error = signal('');
+<<<<<<< HEAD
   library = signal<QueryDef[]>([]); selected = ''; current = signal<QueryDef | null>(null);
   mode = signal<'read' | 'write'>('read'); message = signal('');
   query = 'SELECT ?classe WHERE { ?classe rdfs:subClassOf+ :Club }';
@@ -73,6 +88,20 @@ export class SparqlComponent {
       });
       return;
     }
+=======
+  examples = [
+    { label: 'Enseignants et département',
+      q: 'SELECT ?enseignant ?dep WHERE {\n  ?e a :Enseignant ; rdfs:label ?enseignant ;\n     :appartientADepartement ?d .\n  ?d rdfs:label ?dep\n}' },
+    { label: 'Matières > 3 coefficient',
+      q: 'SELECT ?matiere ?coef WHERE {\n  ?m a/rdfs:subClassOf* :Matiere ; rdfs:label ?matiere ; :coefficient ?coef .\n  FILTER(?coef > 3)\n} ORDER BY DESC(?coef)' },
+    { label: 'Sous-classes de Club',
+      q: 'SELECT ?classe WHERE { ?classe rdfs:subClassOf+ :Club }' },
+  ];
+  query = this.examples[0].q;
+
+  run() {
+    this.error.set('');
+>>>>>>> origin/main
     this.api.sparql(this.query).subscribe({
       next: r => { this.vars.set(r.vars); this.rows.set(r.rows); },
       error: e => { this.error.set(e.error?.error ?? 'Erreur'); this.vars.set([]); },

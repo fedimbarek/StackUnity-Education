@@ -4,7 +4,11 @@ from rdflib import Literal, RDF, OWL, URIRef
 from rdflib.plugins.sparql import prepareQuery
 from auth import auth_required
 from modules import MODULES, module_classes, module_instances, module_of
+<<<<<<< HEAD
 from store import onto, short, sparql, TTL, PREFIXES, individual_exists, uri_of, is_class, describe, run_readonly, run_update
+=======
+from store import onto, short, sparql, TTL, PREFIXES, individual_exists, uri_of, is_class, describe
+>>>>>>> origin/main
 
 bp = Blueprint("misc", __name__, url_prefix="/api")
 
@@ -75,6 +79,7 @@ def raw_sparql():
     """Console SPARQL : lecture seule (SELECT / ASK uniquement)."""
     text = (request.get_json(force=True).get("query") or "").strip()
     try:
+<<<<<<< HEAD
         vars_, rows = run_readonly(text)
     except PermissionError as e:
         return jsonify(error=str(e)), 403
@@ -98,6 +103,17 @@ def sparql_update():
     except ValueError as e:
         return jsonify(error=str(e)), 400
     return jsonify(ok=True, triples_before=before, triples_after=after, delta=after - before)
+=======
+        if prepareQuery(PREFIXES + text).algebra.name not in ("SelectQuery", "AskQuery"):
+            return jsonify(error="Seules les requêtes SELECT/ASK sont autorisées"), 403
+        res = onto.query(PREFIXES + text)
+    except Exception as e:
+        return jsonify(error=f"Requête invalide : {e}"), 400
+    if res.type == "ASK":
+        return jsonify(vars=["ASK"], rows=[{"ASK": str(res.askAnswer)}])
+    return jsonify(vars=[str(v) for v in res.vars],
+                   rows=[{str(k): short(v) for k, v in r.asdict().items()} for r in list(res)[:500]])
+>>>>>>> origin/main
 
 @bp.get("/export.ttl")
 @auth_required

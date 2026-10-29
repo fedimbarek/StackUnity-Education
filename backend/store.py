@@ -23,6 +23,7 @@ def sparql(q, **bind):
     res = onto.query(PREFIXES + q, initBindings={k: URIRef(v) for k, v in bind.items()})
     return [{str(k): short(v) for k, v in row.asdict().items()} for row in res]
 
+<<<<<<< HEAD
 def run_readonly(text, limit=500):
     """Exécute une requête SPARQL en lecture seule (SELECT / ASK). Retourne (vars, rows).
     Lève PermissionError si la requête n'est pas SELECT/ASK, ValueError si elle est invalide."""
@@ -64,6 +65,8 @@ def run_update(text):
     return before, after
 
 
+=======
+>>>>>>> origin/main
 def uri_of(name):
     return URIRef(BASE + name) if isinstance(name, str) and re.fullmatch(r"[A-Za-z0-9_]+", name) else None
 

@@ -2,6 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient, HttpInterceptorFn } from '@angular/common/http';
 import { CanActivateFn, Router } from '@angular/router';
 import { tap } from 'rxjs';
+<<<<<<< HEAD
 import { canAccess } from './roles';
 
 export const API = 'http://localhost:5000/api';
@@ -14,19 +15,28 @@ export interface ProfileOption {
 }
 export interface RegisterPayload { username: string; password: string; role: string; person?: string; name?: string; type?: string; }
 
+=======
+
+export const API = 'http://localhost:5000/api';
+
+>>>>>>> origin/main
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
   user = signal<string | null>(localStorage.getItem('username'));
+<<<<<<< HEAD
   // anciens jetons (sans rôle mémorisé) => « user » : accès complet comme avant
   role = signal<string>(localStorage.getItem('role') ?? 'user');
   name = signal<string>(localStorage.getItem('name') ?? localStorage.getItem('username') ?? '');
   profile = signal<string>(localStorage.getItem('profile') ?? '');
+=======
+>>>>>>> origin/main
 
   get token() { return localStorage.getItem('token'); }
 
   login(username: string, password: string) {
+<<<<<<< HEAD
     return this.http.post<AuthResponse>(`${API}/auth/login`, { username, password }).pipe(tap(r => this.save(r)));
   }
   register(p: RegisterPayload) {
@@ -42,6 +52,21 @@ export class AuthService {
   logout() {
     localStorage.clear();
     this.user.set(null); this.role.set('user'); this.name.set(''); this.profile.set('');
+=======
+    return this.http.post<any>(`${API}/auth/login`, { username, password }).pipe(tap(r => this.save(r)));
+  }
+  register(username: string, password: string) {
+    return this.http.post<any>(`${API}/auth/register`, { username, password }).pipe(tap(r => this.save(r)));
+  }
+  private save(r: { token: string; username: string }) {
+    localStorage.setItem('token', r.token);
+    localStorage.setItem('username', r.username);
+    this.user.set(r.username);
+  }
+  logout() {
+    localStorage.clear();
+    this.user.set(null);
+>>>>>>> origin/main
     this.router.navigate(['/login']);
   }
 }
@@ -59,9 +84,12 @@ export const authGuard: CanActivateFn = () => {
   const ok = !!inject(AuthService).token;
   return ok || inject(Router).createUrlTree(['/login']);
 };
+<<<<<<< HEAD
 
 // Page réservée selon le rôle (ex. un apprenant ne peut pas ouvrir /sparql ni /personnes) : retour au dashboard
 export const accessGuard: CanActivateFn = route => {
   const page = route.routeConfig?.path ?? '';
   return canAccess(inject(AuthService).role(), page) || inject(Router).createUrlTree(['/']);
 };
+=======
+>>>>>>> origin/main
