@@ -1,6 +1,10 @@
 """StackUnity - Serveur Flask : API JSON <-> requêtes SPARQL sur l'ontologie formation_.ttl."""
 import os
 from flask import Flask
+from flask import request, jsonify
+from nlp import generer_sparql
+from store import sparql
+from auth import auth_required
 <<<<<<< HEAD
 import auth, schema, misc, queries, ai, dashboard
 =======
@@ -33,6 +37,27 @@ def cors(resp):                         # CORS pour Angular (localhost:4200)
 @app.route("/api/<path:_>", methods=["OPTIONS"])
 def preflight(_):
     return "", 204
+
+@app.post("/api/nlp")
+@auth_required
+def assistant_nlp():
+    data = request.get_json(silent=True) or {}
+    question = data.get("question", "")
+
+    try:
+        analyse = generer_sparql(question)
+        resultats = sparql(analyse["sparql"])
+
+        return jsonify({
+            "question": question,
+            "classe": analyse["classe"],
+            "intention": analyse["intention"],
+            "sparql": analyse["sparql"],
+            "resultats": resultats
+        })
+
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

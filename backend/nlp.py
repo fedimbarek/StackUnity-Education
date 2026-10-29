@@ -531,3 +531,79 @@ class NL2SPARQL:
         limit = order[1] if order else 200
         q = f"SELECT DISTINCT {' '.join(cols)} WHERE {{\n  {body}\n}} {order_clause} LIMIT {limit}"
         return dict(sparql=q, kind="select", main=main, trace=trace)
+
+        
+# Assistant NLP - Personnes et Organismes
+
+CLASSES_DHIA = {
+    "Apprenant": ["apprenant", "etudiant", "eleve"],
+    "Enseignant": ["enseignant", "professeur"],
+    "Tuteur": ["tuteur"],
+    "PersonnelMedical": ["personnel medical"],
+    "Personne": ["personne", "individu"],
+    "Universite": ["universite", "faculte"],
+    "Entreprise": ["entreprise", "societe"],
+    "Laboratoire": ["laboratoire"],
+    "Organisme": ["organisme", "organisation"],
+}
+
+
+def generer_sparql(question):
+    if not isinstance(question, str) or not question.strip():
+        raise ValueError("Veuillez saisir une question.")
+
+    tokens = analyse(question)
+    racines = {t["key"] for t in tokens}
+
+    classe = None
+
+    for nom, synonymes in CLASSES_DHIA.items():
+        for synonyme in synonymes:
+            syn_racines = {
+                t["key"] for t in analyse(synonyme)
+            }
+
+            if syn_racines.issubset(racines):
+                classe = nom
+                break
+
+        if classe:
+            break
+
+    if classe is None:
+        raise ValueError("Classe non reconnue.")
+
+    mots = {t["norm"] for t in tokens}
+    compteur = bool(mots & {"combien", "nombre", "total"})
+
+    condition = f"""
+        ?item a owl:NamedIndividual .
+        ?item a/rdfs:subClassOf* :{classe} .
+    """
+
+    if compteur:
+        intention = "Compter"
+        requete = f"""
+SELECT (COUNT(DISTINCT ?item) AS ?total)
+WHERE {{
+    {condition}
+}}
+"""
+    else:
+        intention = "Lister"
+        requete = f"""
+SELECT DISTINCT ?item ?nom
+WHERE {{
+    {condition}
+    OPTIONAL {{ ?item rdfs:label ?nom }}
+}}
+ORDER BY ?nom
+LIMIT 100
+"""
+
+    return {
+        "classe": classe,
+        "intention": intention,
+        "sparql": requete.strip()
+    }
+

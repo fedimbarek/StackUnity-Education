@@ -1,85 +1,389 @@
+
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API } from './auth';
 
-export interface OClass { name: string; parent: string | null; count: number; label: string; comment: string; }
-export interface Individual { id: string; label?: string; type?: string; cols?: Record<string, string>; }
-export interface Prop { name: string; kind: 'object' | 'data'; domain: string | null; range: string | null; label: string; usage?: number; }
-export interface Detail {
-  id: string; label: string; types: string[];
-  module?: string | null;
-  properties: { property: string; value: string; node?: boolean }[];
-  incoming: { source: string; property: string }[];
+// ==================================================
+// Interfaces de l'ontologie
+// ==================================================
+
+export interface OClass {
+  name: string;
+  parent: string | null;
+  count: number;
+  label: string;
+  comment: string;
 }
 
-<<<<<<< HEAD
-export interface DashCell { t: string; id?: string; m?: string | null; }
-export interface DashSection { key: string; title: string; icon: string; empty: string; columns: string[]; rows: DashCell[][]; }
+export interface Individual {
+  id: string;
+  label?: string;
+  type?: string;
+  cols?: Record<string, string>;
+}
+
+export interface Prop {
+  name: string;
+  kind: 'object' | 'data';
+  domain: string | null;
+  range: string | null;
+  label: string;
+  usage?: number;
+}
+
+export interface Detail {
+  id: string;
+  label: string;
+  types: string[];
+  module?: string | null;
+  properties: {
+    property: string;
+    value: string;
+    node?: boolean;
+  }[];
+  incoming: {
+    source: string;
+    property: string;
+  }[];
+}
+
+// ==================================================
+// Dashboard personnalisé
+// ==================================================
+
+export interface DashCell {
+  t: string;
+  id?: string;
+  m?: string | null;
+}
+
+export interface DashSection {
+  key: string;
+  title: string;
+  icon: string;
+  empty: string;
+  columns: string[];
+  rows: DashCell[][];
+}
+
 export interface MyDashboard {
-  role: string; profile: string; type: string; title: string; subtitle: string;
-  person: { id: string; name: string; fields: { label: string; values: DashCell[] }[] };
-  stats: { label: string; value: number; target: string }[];
+  role: string;
+  profile: string;
+  type: string;
+  title: string;
+  subtitle: string;
+
+  person: {
+    id: string;
+    name: string;
+    fields: {
+      label: string;
+      values: DashCell[];
+    }[];
+  };
+
+  stats: {
+    label: string;
+    value: number;
+    target: string;
+  }[];
+
   sections: DashSection[];
 }
 
-export interface QueryDef { id: string; category: string; title: string; question: string; query: string; }
-export interface NlpTrace {
-  tools: Record<string, string | null>;
-  tokens: { text: string; lemma: string; pos: string; stem: string }[];
-  entities: { text: string; kind: string; name: string; fuzzy: boolean }[];
-  intent: string[]; constraints: string[]; notes: string[];
-}
-export interface AiAnswer {
-  question: string; engine: 'nlp'; sparql: string | null; vars: string[]; rows: any[]; answer: string;
-  warning?: string | null; trace: NlpTrace | null;
+// ==================================================
+// Bibliothèque de requêtes SPARQL
+// ==================================================
+
+export interface QueryDef {
+  id: string;
+  category: string;
+  title: string;
+  question: string;
+  query: string;
 }
 
-@Injectable({ providedIn: 'root' })
+// ==================================================
+// IA avancée des collègues
+// ==================================================
+
+export interface NlpTrace {
+  tools: Record<string, string | null>;
+
+  tokens: {
+    text: string;
+    lemma: string;
+    pos: string;
+    stem: string;
+  }[];
+
+  entities: {
+    text: string;
+    kind: string;
+    name: string;
+    fuzzy: boolean;
+  }[];
+
+  intent: string[];
+  constraints: string[];
+  notes: string[];
+}
+
+export interface AiAnswer {
+  question: string;
+  engine: 'nlp';
+  sparql: string | null;
+  vars: string[];
+  rows: any[];
+  answer: string;
+  warning?: string | null;
+  trace: NlpTrace | null;
+}
+
+// ==================================================
+// Assistant NLP Dhia - Personnes et Organismes
+// ==================================================
+
+export interface NlpResponse {
+  question: string;
+  classe: string;
+  intention: string;
+  sparql: string;
+  resultats: Record<string, string>[];
+}
+
+// ==================================================
+// Service API Angular
+// ==================================================
+
+@Injectable({
+  providedIn: 'root'
+})
 export class ApiService {
+
   private http = inject(HttpClient);
-  // --- dashboard personnalisé (selon le rôle du compte) ---
-  myDashboard = () => this.http.get<MyDashboard>(`${API}/me/dashboard`);
-=======
-@Injectable({ providedIn: 'root' })
-export class ApiService {
-  private http = inject(HttpClient);
->>>>>>> origin/main
-  // --- transversal ---
-  modules = () => this.http.get<any[]>(`${API}/modules`);
-  stats = () => this.http.get<Record<string, number>>(`${API}/stats`);
-  search = (q: string) => this.http.get<any[]>(`${API}/search`, { params: { q } });
-  allIndividuals = () => this.http.get<Individual[]>(`${API}/individuals`);
-  individual = (id: string) => this.http.get<Detail>(`${API}/individuals/${id}`);          // fiche globale (tous modules)
-  individualsOf = (cls: string) => this.http.get<Individual[]>(`${API}/classes/${cls}/individuals`);
-  allClasses = () => this.http.get<string[]>(`${API}/classes`);
-<<<<<<< HEAD
-  sparqlUpdate = (update: string) => this.http.post<{ ok: boolean; triples_before: number; triples_after: number; delta: number }>(`${API}/sparql/update`, { update });
-  sparql = (query: string) => this.http.post<{ vars: string[]; rows: any[] }>(`${API}/sparql`, { query });
-  queries = () => this.http.get<QueryDef[]>(`${API}/queries`);                      // bibliothèque de requêtes SPARQL
-  // --- API IA ---
-  aiStatus = () => this.http.get<{ engine: string; tools: Record<string, string | null>; llm: boolean }>(`${API}/ai/status`);
-  aiAsk = (question: string) => this.http.post<AiAnswer>(`${API}/ai/ask`, { question });
-  aiExplain = (id: string) => this.http.post<any>(`${API}/ai/explain`, { id });
-  aiRecommend = (id: string) => this.http.get<any>(`${API}/ai/recommend/${id}`);
-=======
-  sparql = (query: string) => this.http.post<{ vars: string[]; rows: any[] }>(`${API}/sparql`, { query });
->>>>>>> origin/main
-  exportTtl = () => this.http.get(`${API}/export.ttl`, { responseType: 'blob' });
-  // --- CRUD par module : /api/<module>/classes … /api/<module>/items … ---
-  classes = (m: string) => this.http.get<OClass[]>(`${API}/${m}/classes`);
-  createClass = (m: string, b: any) => this.http.post(`${API}/${m}/classes`, b);
-  updateClass = (m: string, n: string, b: any) => this.http.put(`${API}/${m}/classes/${n}`, b);
-  deleteClass = (m: string, n: string) => this.http.delete(`${API}/${m}/classes/${n}`);
-  classProps = (m: string, n: string) => this.http.get<string[]>(`${API}/${m}/classes/${n}/properties`);
-  items = (m: string, cls: string, columns: string[] = []) =>
-    this.http.get<Individual[]>(`${API}/${m}/classes/${cls}/items`, { params: { columns: columns.join(',') } });
-  item = (m: string, id: string) => this.http.get<Detail>(`${API}/${m}/items/${id}`);
-  createItem = (m: string, b: any) => this.http.post(`${API}/${m}/items`, b);
-  updateItem = (m: string, id: string, b: any) => this.http.put(`${API}/${m}/items/${id}`, b);
-  deleteItem = (m: string, id: string) => this.http.delete(`${API}/${m}/items/${id}`);
-  // --- CRUD des propriétés (module Schéma) ---
-  props = () => this.http.get<Prop[]>(`${API}/properties`);
-  createProp = (b: any) => this.http.post(`${API}/properties`, b);
-  updateProp = (n: string, b: any) => this.http.put(`${API}/properties/${n}`, b);
-  deleteProp = (n: string) => this.http.delete(`${API}/properties/${n}`);
+
+  // --------------------------------------------------
+  // Dashboard personnalisé
+  // --------------------------------------------------
+
+  myDashboard = () =>
+    this.http.get<MyDashboard>(
+      `${API}/me/dashboard`
+    );
+
+  // --------------------------------------------------
+  // Fonctionnalités transversales
+  // --------------------------------------------------
+
+  modules = () =>
+    this.http.get<any[]>(`${API}/modules`);
+
+  stats = () =>
+    this.http.get<Record<string, number>>(
+      `${API}/stats`
+    );
+
+  search = (q: string) =>
+    this.http.get<any[]>(
+      `${API}/search`,
+      { params: { q } }
+    );
+
+  allIndividuals = () =>
+    this.http.get<Individual[]>(
+      `${API}/individuals`
+    );
+
+  individual = (id: string) =>
+    this.http.get<Detail>(
+      `${API}/individuals/${id}`
+    );
+
+  individualsOf = (cls: string) =>
+    this.http.get<Individual[]>(
+      `${API}/classes/${cls}/individuals`
+    );
+
+  allClasses = () =>
+    this.http.get<string[]>(
+      `${API}/classes`
+    );
+
+  // --------------------------------------------------
+  // SPARQL : lecture et modification
+  // --------------------------------------------------
+
+  sparql = (query: string) =>
+    this.http.post<{
+      vars: string[];
+      rows: any[];
+    }>(
+      `${API}/sparql`,
+      { query }
+    );
+
+  sparqlUpdate = (update: string) =>
+    this.http.post<{
+      ok: boolean;
+      triples_before: number;
+      triples_after: number;
+      delta: number;
+    }>(
+      `${API}/sparql/update`,
+      { update }
+    );
+
+  // Bibliothèque de requêtes SPARQL
+  queries = () =>
+    this.http.get<QueryDef[]>(
+      `${API}/queries`
+    );
+
+  // --------------------------------------------------
+  // IA avancée : module des collègues
+  // --------------------------------------------------
+
+  aiStatus = () =>
+    this.http.get<{
+      engine: string;
+      tools: Record<string, string | null>;
+      llm: boolean;
+    }>(
+      `${API}/ai/status`
+    );
+
+  aiAsk = (question: string) =>
+    this.http.post<AiAnswer>(
+      `${API}/ai/ask`,
+      { question }
+    );
+
+  aiExplain = (id: string) =>
+    this.http.post<any>(
+      `${API}/ai/explain`,
+      { id }
+    );
+
+  aiRecommend = (id: string) =>
+    this.http.get<any>(
+      `${API}/ai/recommend/${id}`
+    );
+
+  // --------------------------------------------------
+  // Assistant IA Dhia : NLP + SPARQL
+  // --------------------------------------------------
+
+  nlp = (question: string) =>
+    this.http.post<NlpResponse>(
+      `${API}/nlp`,
+      { question }
+    );
+
+  // --------------------------------------------------
+  // Export de l'ontologie TTL
+  // --------------------------------------------------
+
+  exportTtl = () =>
+    this.http.get(
+      `${API}/export.ttl`,
+      { responseType: 'blob' }
+    );
+
+  // --------------------------------------------------
+  // CRUD des classes
+  // --------------------------------------------------
+
+  classes = (m: string) =>
+    this.http.get<OClass[]>(
+      `${API}/${m}/classes`
+    );
+
+  createClass = (m: string, b: any) =>
+    this.http.post(
+      `${API}/${m}/classes`,
+      b
+    );
+
+  updateClass = (m: string, n: string, b: any) =>
+    this.http.put(
+      `${API}/${m}/classes/${n}`,
+      b
+    );
+
+  deleteClass = (m: string, n: string) =>
+    this.http.delete(
+      `${API}/${m}/classes/${n}`
+    );
+
+  classProps = (m: string, n: string) =>
+    this.http.get<string[]>(
+      `${API}/${m}/classes/${n}/properties`
+    );
+
+  // --------------------------------------------------
+  // CRUD des individus
+  // --------------------------------------------------
+
+  items = (
+    m: string,
+    cls: string,
+    columns: string[] = []
+  ) =>
+    this.http.get<Individual[]>(
+      `${API}/${m}/classes/${cls}/items`,
+      {
+        params: {
+          columns: columns.join(',')
+        }
+      }
+    );
+
+  item = (m: string, id: string) =>
+    this.http.get<Detail>(
+      `${API}/${m}/items/${id}`
+    );
+
+  createItem = (m: string, b: any) =>
+    this.http.post(
+      `${API}/${m}/items`,
+      b
+    );
+
+  updateItem = (m: string, id: string, b: any) =>
+    this.http.put(
+      `${API}/${m}/items/${id}`,
+      b
+    );
+
+  deleteItem = (m: string, id: string) =>
+    this.http.delete(
+      `${API}/${m}/items/${id}`
+    );
+
+  // --------------------------------------------------
+  // CRUD des propriétés
+  // --------------------------------------------------
+
+  props = () =>
+    this.http.get<Prop[]>(
+      `${API}/properties`
+    );
+
+  createProp = (b: any) =>
+    this.http.post(
+      `${API}/properties`,
+      b
+    );
+
+  updateProp = (n: string, b: any) =>
+    this.http.put(
+      `${API}/properties/${n}`,
+      b
+    );
+
+  deleteProp = (n: string) =>
+    this.http.delete(
+      `${API}/properties/${n}`
+    );
 }
