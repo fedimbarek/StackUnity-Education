@@ -9,6 +9,12 @@ Toute création / modification / suppression (instances, classes, propriétés) 
     cd backend && python -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python app.py   # :5000
     cd frontend && npm install && npx ng serve                                                                        # :4200
 Compte démo `admin` / `admin123`, ou « Créer un compte » (comptes gardés dans backend/users.json).
+<<<<<<< HEAD
+Comptes de démo par profil (mot de passe `demo123`) : `amira` apprenant · `bilel` stagiaire · `ahmed`, `walid` enseignants · `drsonia` médecin · `mariem` psychologue · `rim` responsable de club · `mehdi` tuteur d'entreprise · `sami` tuteur (désactivables : `SEED_DEMO_USERS=0`).
+
+> **Validation** : voir `GUIDE_VALIDATION.md` (critère par critère, déroulé de démo).
+=======
+>>>>>>> origin/main
 
 ## Les 10 modules (1 module = 1 sous-arbre de l'ontologie = 1 blueprint Flask = 1 page Angular)
 | Module (route / API) | Classe racine | Classes |
@@ -36,6 +42,10 @@ Pour chaque module `<m>` :
 | GET | /api/<m>/classes/<Classe>/properties | propriétés applicables (selon rdfs:domain) |
 | POST | /api/<m>/items | créer une instance |
 | GET / PUT / DELETE | /api/<m>/items/<Id> | lire / modifier / supprimer |
+<<<<<<< HEAD
+IA & requêtes : `GET /api/queries` (bibliothèque de 16 requêtes SPARQL), `POST /api/queries/<id>/run`, `POST /api/ai/ask` (NLP → SPARQL), `POST /api/sparql/update` (CRUD, admin), `POST /api/ai/explain`, `GET /api/ai/recommend/<id>`, `GET /api/ai/status`.
+=======
+>>>>>>> origin/main
 Transversal : `POST /api/auth/register|login`, `GET /api/modules`, `/api/stats`, `/api/search?q=`, `POST /api/sparql` (SELECT/ASK), `GET /api/export.ttl`,
 `GET /api/individuals/<Id>` (fiche globale + module), `GET /api/classes/<Classe>/individuals`, `GET/POST /api/properties`, `PUT/DELETE /api/properties/<nom>`.
 
@@ -46,8 +56,34 @@ Transversal : `POST /api/auth/register|login`, `GET /api/modules`, `/api/stats`,
   (57 au total), avec les colonnes du tableau et les champs du formulaire propres à chaque sous-entité.
   Exemple : Personnes → Enseignants, Apprenants, Personnel médical, Tuteurs, Tuteurs entreprise, Responsables de club, Administrateurs.
 - Dans chaque module : onglets d'entités (CRUD instances) + onglet « ⚙ Classes » (CRUD des classes du module).
+<<<<<<< HEAD
+- **pages/** : login, dashboard (recherche globale), schema (CRUD des propriétés), sparql (bibliothèque de requêtes), **ai** (assistant NLP → SPARQL), **scenario** (dossier 360° d'Amira).
+
+## Où est quoi
+- backend/nlp.py (NLP → SPARQL, spaCy + NLTK) · ai.py (API IA) · queries.py (16 requêtes SPARQL) · check_queries.py (vérification)
+- backend/app.py (assemblage) · modules.py (10 modules + CRUD) · schema.py (propriétés) · auth.py · misc.py · store.py (rdflib + écriture .ttl)
+- frontend/src/app/core (auth, api.service, modules.ts, module.types.ts) · shared/ · features/ · pages/
+
+## Comptes, rôles et dashboards personnalisés
+Chaque compte (hors `admin`) est **lié à une Personne de l'ontologie** ; son **rôle vient de la classe de cette personne** (calculé à chaque connexion, `backend/roles.py`) :
+
+| Rôle | Classes de l'ontologie | Dashboard (`GET /api/me/dashboard`) |
+|---|---|---|
+| apprenant | Apprenant, Étudiant, Stagiaire, Boursier… | formations, inscriptions, séances, évaluations, clubs, stage, bourse, santé, certificats, certifications, compétences |
+| enseignant | Enseignant, Professeur, Chargé de cours, Vacataire | matières, formations, séances, apprenants de ses séances, stages encadrés, clubs encadrés, départements |
+| medical | Médecin, Infirmier, Psychologue | services assurés, bénéficiaires, certificats délivrés |
+| responsable_club | ResponsableClub | clubs, membres, événements, compétences |
+| tuteur | Tuteur | apprenants tutorés, leurs stages |
+| tuteur_entreprise | TuteurEntreprise | stages supervisés, stagiaires, organismes, compétences |
+| admin / user | compte `admin`, anciens comptes sans profil | dashboard général (inchangé), accès complet |
+
+- **Inscription** : l'utilisateur choisit son profil, puis soit sa fiche existante dans l'ontologie (une fiche = un seul compte), soit « Nouveau profil » (crée la Personne dans `formation_.ttl`). `GET /api/auth/profiles` (public) alimente le formulaire ; `administrateur` n'est pas auto-inscriptible.
+- **Ajouter un rôle / une section** : `backend/dashboard.py` (dictionnaire `DASHBOARDS`, une section = une requête SPARQL avec `?me`) et `backend/roles.py` (`PROFILES`) ; côté Angular, pages visibles par rôle dans `core/roles.ts`.
+- **Menu et routes** : un rôle ne voit que ses modules (`accessGuard`) ; propriétés, console SPARQL, assistant IA, scénario et export .ttl restent réservés à admin.
+=======
 - **pages/** : login, dashboard (recherche globale), schema (CRUD des propriétés), sparql.
 
 ## Où est quoi
 - backend/app.py (assemblage) · modules.py (10 modules + CRUD) · schema.py (propriétés) · auth.py · misc.py · store.py (rdflib + écriture .ttl)
 - frontend/src/app/core (auth, api.service, modules.ts, module.types.ts) · shared/ · features/ · pages/
+>>>>>>> origin/main

@@ -23,6 +23,50 @@ def sparql(q, **bind):
     res = onto.query(PREFIXES + q, initBindings={k: URIRef(v) for k, v in bind.items()})
     return [{str(k): short(v) for k, v in row.asdict().items()} for row in res]
 
+<<<<<<< HEAD
+def run_readonly(text, limit=500):
+    """Exécute une requête SPARQL en lecture seule (SELECT / ASK). Retourne (vars, rows).
+    Lève PermissionError si la requête n'est pas SELECT/ASK, ValueError si elle est invalide."""
+    from rdflib.plugins.sparql import prepareQuery
+    try:
+        kind = prepareQuery(PREFIXES + text).algebra.name
+    except Exception as e:
+        raise ValueError(f"Requête invalide : {e}")
+    if kind not in ("SelectQuery", "AskQuery"):
+        raise PermissionError("Seules les requêtes SELECT/ASK sont autorisées")
+    try:
+        res = onto.query(PREFIXES + text)
+    except Exception as e:
+        raise ValueError(f"Requête invalide : {e}")
+    if res.type == "ASK":
+        return ["ASK"], [{"ASK": str(res.askAnswer)}]
+    return ([str(v) for v in res.vars],
+            [{str(k): short(v) for k, v in r.asdict().items()} for r in list(res)[:limit]])
+
+
+def run_update(text):
+    """SPARQL UPDATE (INSERT DATA / DELETE DATA / DELETE-INSERT WHERE) puis réécriture de formation_.ttl.
+    Retourne (triplets_avant, triplets_après). Les opérations sur graphes (LOAD, CLEAR, DROP...) sont interdites."""
+    from rdflib.plugins.sparql.parser import parseUpdate
+    if re.search(r"(?im)^\s*(LOAD|CLEAR|DROP|CREATE|COPY|MOVE|ADD)\b", text):
+        raise PermissionError("Opération sur graphe interdite (LOAD/CLEAR/DROP/CREATE/COPY/MOVE/ADD)")
+    try:
+        parseUpdate(PREFIXES + text)
+    except Exception as e:
+        raise ValueError(f"Mise à jour invalide : {e}")
+    with LOCK:
+        before = len(onto)
+        try:
+            onto.update(PREFIXES + text)
+        except Exception as e:
+            raise ValueError(f"Mise à jour invalide : {e}")
+        after = len(onto)
+        save()
+    return before, after
+
+
+=======
+>>>>>>> origin/main
 def uri_of(name):
     return URIRef(BASE + name) if isinstance(name, str) and re.fullmatch(r"[A-Za-z0-9_]+", name) else None
 
