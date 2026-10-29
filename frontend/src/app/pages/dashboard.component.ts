@@ -23,6 +23,10 @@ import { CubeComponent, HeroArtComponent } from '../shared/art.component';
         <div class="cta">
           <a class="btn" routerLink="/formations">Voir les formations</a>
           <a class="btn ghost" routerLink="/sparql">Console SPARQL</a>
+<<<<<<< HEAD
+          <a class="btn ghost" routerLink="/ia">Assistant IA</a>
+=======
+>>>>>>> origin/main
         </div>
       </div>
       <app-hero-art />

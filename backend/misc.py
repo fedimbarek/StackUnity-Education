@@ -4,7 +4,11 @@ from rdflib import Literal, RDF, OWL, URIRef
 from rdflib.plugins.sparql import prepareQuery
 from auth import auth_required
 from modules import MODULES, module_classes, module_instances, module_of
+<<<<<<< HEAD
+from store import onto, short, sparql, TTL, PREFIXES, individual_exists, uri_of, is_class, describe, run_readonly, run_update
+=======
 from store import onto, short, sparql, TTL, PREFIXES, individual_exists, uri_of, is_class, describe
+>>>>>>> origin/main
 
 bp = Blueprint("misc", __name__, url_prefix="/api")
 
@@ -75,6 +79,31 @@ def raw_sparql():
     """Console SPARQL : lecture seule (SELECT / ASK uniquement)."""
     text = (request.get_json(force=True).get("query") or "").strip()
     try:
+<<<<<<< HEAD
+        vars_, rows = run_readonly(text)
+    except PermissionError as e:
+        return jsonify(error=str(e)), 403
+    except ValueError as e:
+        return jsonify(error=str(e)), 400
+    return jsonify(vars=vars_, rows=rows)
+
+@bp.post("/sparql/update")
+@auth_required
+def sparql_update():
+    """CRUD par SPARQL UPDATE (INSERT / DELETE / DELETE-INSERT) — réservé au rôle admin ; réécrit formation_.ttl."""
+    if getattr(request, "role", "") != "admin":
+        return jsonify(error="Réservé aux administrateurs"), 403
+    text = (request.get_json(force=True).get("update") or "").strip()
+    if not text:
+        return jsonify(error="Mise à jour vide"), 400
+    try:
+        before, after = run_update(text)
+    except PermissionError as e:
+        return jsonify(error=str(e)), 403
+    except ValueError as e:
+        return jsonify(error=str(e)), 400
+    return jsonify(ok=True, triples_before=before, triples_after=after, delta=after - before)
+=======
         if prepareQuery(PREFIXES + text).algebra.name not in ("SelectQuery", "AskQuery"):
             return jsonify(error="Seules les requêtes SELECT/ASK sont autorisées"), 403
         res = onto.query(PREFIXES + text)
@@ -84,6 +113,7 @@ def raw_sparql():
         return jsonify(vars=["ASK"], rows=[{"ASK": str(res.askAnswer)}])
     return jsonify(vars=[str(v) for v in res.vars],
                    rows=[{str(k): short(v) for k, v in r.asdict().items()} for r in list(res)[:500]])
+>>>>>>> origin/main
 
 @bp.get("/export.ttl")
 @auth_required

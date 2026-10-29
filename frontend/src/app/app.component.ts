@@ -1,8 +1,16 @@
+<<<<<<< HEAD
+import { Component, computed, inject } from '@angular/core';
+=======
 import { Component, inject } from '@angular/core';
+>>>>>>> origin/main
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from './core/auth';
 import { ApiService } from './core/api.service';
 import { MODULES } from './core/modules';
+<<<<<<< HEAD
+import { canAccess, isFull } from './core/roles';
+=======
+>>>>>>> origin/main
 
 @Component({
   selector: 'app-root',
@@ -17,6 +25,27 @@ import { MODULES } from './core/modules';
             </svg>
             StackUnity
           </strong>
+<<<<<<< HEAD
+          <a routerLink="/" routerLinkActive="on" [routerLinkActiveOptions]="{exact:true}"><i class="dot"></i>{{ full() ? 'Tableau de bord' : 'Mon espace' }}</a>
+          @if (modules().length) {
+            <small class="muted sec">Modules</small>
+            @for (m of modules(); track m.id) { <a [routerLink]="'/' + m.id" routerLinkActive="on"><i class="dot"></i>{{ m.title }}</a> }
+          }
+          @if (full()) {
+            <small class="muted sec">Schéma</small>
+            <a routerLink="/proprietes" routerLinkActive="on"><i class="dot"></i>Propriétés</a>
+            <a routerLink="/sparql" routerLinkActive="on"><i class="dot"></i>Console SPARQL</a>
+            <small class="muted sec">Intelligence</small>
+            <a routerLink="/ia" routerLinkActive="on"><i class="dot"></i>Assistant IA</a>
+            <a routerLink="/scenario" routerLinkActive="on"><i class="dot"></i>Scénario Amira</a>
+          }
+          <div class="grow"></div>
+          @if (full()) { <button class="ghost" (click)="download()">Télécharger .ttl</button> }
+          <span class="muted userbox">
+            {{ full() ? auth.user() : auth.name() }} @if (!full() && auth.profile()) { <small class="role-tag">{{ auth.profile() }}</small> }
+            · <a (click)="auth.logout()">Déconnexion</a>
+          </span>
+=======
           <a routerLink="/" routerLinkActive="on" [routerLinkActiveOptions]="{exact:true}"><i class="dot"></i>Tableau de bord</a>
           <small class="muted sec">Modules</small>
           @for (m of modules; track m.id) { <a [routerLink]="'/' + m.id" routerLinkActive="on"><i class="dot"></i>{{ m.title }}</a> }
@@ -31,6 +60,7 @@ import { MODULES } from './core/modules';
           <div class="grow"></div>
           <button class="ghost" (click)="download()">Télécharger .ttl</button>
           <span class="muted userbox">{{ auth.user() }} · <a (click)="auth.logout()">Déconnexion</a></span>
+>>>>>>> origin/main
         </aside>
         <main><router-outlet /></main>
       </div>
@@ -39,7 +69,12 @@ import { MODULES } from './core/modules';
 export class AppComponent {
   auth = inject(AuthService);
   private api = inject(ApiService);
+<<<<<<< HEAD
+  full = computed(() => isFull(this.auth.role()));
+  modules = computed(() => MODULES.filter(m => canAccess(this.auth.role(), m.id)));
+=======
   modules = MODULES;
+>>>>>>> origin/main
   download() {
     this.api.exportTtl().subscribe(b => {
       const a = document.createElement('a');
