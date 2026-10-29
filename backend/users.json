@@ -1,0 +1,10 @@
+{
+  "admin": {
+    "hash": "scrypt:32768:8:1$rDusfiMFmv2MhccI$34cbaca215cd19da667915bb783c55b92e74716a7fe2b6815173bf4556731bdd3a7cc0c6151f1e71b9060df93966eb3de75479b7884468274a5b32dc99a354a9",
+    "role": "admin"
+  },
+  "ahmed2@gmail.com": {
+    "hash": "scrypt:32768:8:1$QHREv6akoo1DD7W4$54c9571829b0b6fc7602d02c3fc06259c92044433840d30e651208d12ecf39233c88144d62ecae094b65987e2bf1f84a10758c5a139347c8cb9a8ca7bd7628d6",
+    "role": "user"
+  }
+}
